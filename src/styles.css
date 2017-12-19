@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+body{
+    font-family: 'Abel', sans-serif;
+}
+.family-group{
+    margin:5%;
+}
+.dropdown{
+    display: inline-flex;
+    position: relative;
+    vertical-align: top;
+    margin-left: 100px;
+    height: 35px;
+    width: 246px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.panel {
+    font-size: 1rem;
+    background-color: #fdfaf6;
+    border-radius: 10px;
+}
+.panel-heading{
+    color: #181917;
+    background-color: #dfe7ef;
+}

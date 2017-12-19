@@ -1,0 +1,102 @@
+<div class="family-group">
+  <div class="panel">
+    <div class="panel-heading">
+      New Family Details
+    </div>
+    <div class="panel-block">
+      <table class="table">
+        <tr>
+          <td>Grandparent</td>
+          <td>Parent</td>
+          <td>Children</td>
+        </tr>
+        <tr>
+          <td>
+            <input type="text" [(ngModel)]="userGrandparent.firstname" placeholder="firstname" class="input is-primary is-small"
+            />
+          </td>
+          <td>
+            <input type="text" [(ngModel)]="userparent.firstname" placeholder="firstname" class="input is-primary is-small"/>
+          </td>
+          <td>
+              <input type="text" [(ngModel)]="userchild.firstname" placeholder="firstname" class="input is-primary is-small"/>
+          </td>
+        </tr>
+        <tr>
+            <td>
+              <input type="text" [(ngModel)]="userGrandparent.lastname" placeholder="lastname" class="input is-primary is-small"
+              />
+            </td>
+            <td>
+              <input type="text" [(ngModel)]="userparent.lastname" placeholder="lastname" class="input is-primary is-small"/>
+            </td>
+            <td>
+                <input type="text" [(ngModel)]="userchild.lastname" placeholder="lastname" class="input is-primary is-small"/>
+            </td>
+          </tr>
+          <tr>
+              <td>
+               
+              </td>
+              <td>
+                  <input type="button" class="button  is-link" value="+" (click)="Add(userGrandparent,userparent,userchild,1)" />               </td>
+              <td>
+                  <input type="button" class="button  is-link" value="+" (click)="Add(userGrandparent,userparent,userchild,2)" />                   </td>
+            </tr>
+      </table>
+    </div>
+  </div>
+</div>
+<div class="family-group">
+  <div class="panel ">
+    <div class="panel-heading">
+      Family Group
+    </div>
+
+    <div class="panel-block">
+      <label>Grandparent(s)</label>
+      <select [(ngModel)]="GrandParent" class="dropdown" (change)="change(GrandParent)">
+        <option disabled>
+          <=====Select====>
+        </option>
+        <option *ngFor="let gp of familyGroup" [ngValue]="gp">
+          {{gp.grand_parent.firstname+' '+gp.grand_parent.lastname+' =>'+(gp.grand_parent.id)}}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="GrandParent.parent!=undefined;then loadParent ">
+    </div>
+  </div>
+</div>
+
+<ng-template #loadParent>
+  <div class="panel-block">
+    <label>Parent(s)</label>
+    <select [(ngModel)]="Parent" style="margin-left: 130px;" class="dropdown" (change)="changParent(Parent)">
+      <option disabled>
+        <=====Select====>
+      </option>
+      <option *ngFor="let gpp of GrandParent.parent" [ngValue]="gpp">
+        {{gpp.member.firstname+' '+gpp.member.lastname+' =>'+ (gpp.member.id)}}
+      </option>
+    </select>
+  </div>
+  <div *ngIf="Parent.children!=undefined;then otherParent">
+  </div>
+</ng-template>
+
+
+<ng-template #otherParent>
+
+  <div class="panel-block">
+    <label>Children</label>
+    <select [(ngModel)]="Children" style="margin-left: 139px;" class="dropdown">
+      <option disabled>
+        <=====Select====>
+      </option>
+      <option *ngFor="let gppp of Parent.children" [ngValue]="gppp">
+        {{gppp.member.firstname+' '+gppp.member.lastname+' =>'+ (gppp.member.id)}}
+      </option>
+    </select>
+  </div>
+</ng-template>
