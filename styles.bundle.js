@@ -35,7 +35,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody{\n    font-family: 'Abel', sans-serif;\n}\n.family-group{\n    margin:5%;\n}\n.dropdown{\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n    position: relative;\n    vertical-align: top;\n    margin-left: 100px;\n    height: 35px;\n    width: 246px;\n    font-size: 16px;\n    font-weight: 500;\n}", ""]);
+exports.push([module.i, "/* You can add global styles to this file, and also import other style files */\nbody{\n    font-family: 'Abel', sans-serif;\n}\n.family-group{\n    margin:5%;\n}\n.dropdown{\n    display: -webkit-inline-box;\n    display: -ms-inline-flexbox;\n    display: inline-flex;\n    position: relative;\n    vertical-align: top;\n    margin-left: 100px;\n    height: 35px;\n    width: 246px;\n    font-size: 16px;\n    font-weight: 500;\n}\n.panel {\n    font-size: 1rem;\n    background-color: #fdfaf6;\n    border-radius: 10px;\n}\n.panel-heading{\n    color: #181917;\n    background-color: #dfe7ef;\n}", ""]);
 
 // exports
 

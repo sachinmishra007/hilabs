@@ -34,7 +34,7 @@ module.exports = module.exports.toString();
 /***/ "../../../../../src/app/app.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"family-group\">\n  <div class=\"panel\">\n    <div class=\"panel-heading\">\n      Family Group\n    </div>\n     \n    <div class=\"panel-block\">\n      <label>Grandparent(s)</label>\n      <select [(ngModel)]=\"GrandParent\" class=\"dropdown\" (change)=\"change(GrandParent)\">\n        <option disabled>\n          <=====Select====>\n        </option>\n        <option *ngFor=\"let gp of familyGroup\" [ngValue]=\"gp\">\n          {{gp.grand_parent.firstname+' '+gp.grand_parent.lastname+' =>'+(gp.grand_parent.id)}}\n        </option>\n      </select>\n    </div>\n    <div *ngIf=\"GrandParent.parent!=undefined;then loadParent \">\n    </div>\n  </div>\n</div>\n\n<ng-template #loadParent>\n  <div class=\"panel-block\">\n    <label>Parent(s)</label>\n    <select [(ngModel)]=\"Parent\" style=\"margin-left: 130px;\" class=\"dropdown\" (change)=\"changParent(Parent)\">\n      <option disabled>\n        <=====Select====>\n      </option>\n      <option *ngFor=\"let gpp of GrandParent.parent\" [ngValue]=\"gpp\">\n        {{gpp.member.firstname+' '+gpp.member.lastname+' =>'+ (gpp.member.id)}}\n      </option>\n    </select>\n  </div>\n  <div *ngIf=\"Parent.children!=undefined;then otherParent\">\n  </div>\n</ng-template>\n\n\n<ng-template #otherParent>\n   \n  <div class=\"panel-block\">\n    <label>Children</label>\n    <select [(ngModel)]=\"Children\" style=\"margin-left: 139px;\" class=\"dropdown\">\n      <option disabled>\n        <=====Select====>\n      </option>\n      <option *ngFor=\"let gppp of Parent.children\" [ngValue]=\"gppp\">\n        {{gppp.member.firstname+' '+gppp.member.lastname+' =>'+ (gppp.member.id)}}\n      </option>\n    </select>\n  </div>\n</ng-template>"
+module.exports = "<div class=\"family-group\">\n  <div class=\"panel\">\n    <div class=\"panel-heading\">\n      New Family Details\n    </div>\n    <div class=\"panel-block\">\n      <table class=\"table\">\n        <tr>\n          <td>Grandparent</td>\n          <td>Parent</td>\n          <td>Children</td>\n        </tr>\n        <tr>\n          <td>\n            <input type=\"text\" [(ngModel)]=\"userGrandparent.firstname\" placeholder=\"firstname\" class=\"input is-primary is-small\"\n            />\n          </td>\n          <td>\n            <input type=\"text\" [(ngModel)]=\"userparent.firstname\" placeholder=\"firstname\" class=\"input is-primary is-small\"/>\n          </td>\n          <td>\n              <input type=\"text\" [(ngModel)]=\"userchild.firstname\" placeholder=\"firstname\" class=\"input is-primary is-small\"/>\n          </td>\n        </tr>\n        <tr>\n            <td>\n              <input type=\"text\" [(ngModel)]=\"userGrandparent.lastname\" placeholder=\"lastname\" class=\"input is-primary is-small\"\n              />\n            </td>\n            <td>\n              <input type=\"text\" [(ngModel)]=\"userparent.lastname\" placeholder=\"lastname\" class=\"input is-primary is-small\"/>\n            </td>\n            <td>\n                <input type=\"text\" [(ngModel)]=\"userchild.lastname\" placeholder=\"lastname\" class=\"input is-primary is-small\"/>\n            </td>\n          </tr>\n          <tr>\n              <td>\n               \n              </td>\n              <td>\n                  <input type=\"button\" class=\"button  is-link\" value=\"+\" (click)=\"Add(userGrandparent,userparent,userchild,1)\" />               </td>\n              <td>\n                  <input type=\"button\" class=\"button  is-link\" value=\"+\" (click)=\"Add(userGrandparent,userparent,userchild,2)\" />                   </td>\n            </tr>\n      </table>\n    </div>\n  </div>\n</div>\n<div class=\"family-group\">\n  <div class=\"panel \">\n    <div class=\"panel-heading\">\n      Family Group\n    </div>\n\n    <div class=\"panel-block\">\n      <label>Grandparent(s)</label>\n      <select [(ngModel)]=\"GrandParent\" class=\"dropdown\" (change)=\"change(GrandParent)\">\n        <option disabled>\n          <=====Select====>\n        </option>\n        <option *ngFor=\"let gp of familyGroup\" [ngValue]=\"gp\">\n          {{gp.grand_parent.firstname+' '+gp.grand_parent.lastname+' =>'+(gp.grand_parent.id)}}\n        </option>\n      </select>\n    </div>\n    <div *ngIf=\"GrandParent.parent!=undefined;then loadParent \">\n    </div>\n  </div>\n</div>\n\n<ng-template #loadParent>\n  <div class=\"panel-block\">\n    <label>Parent(s)</label>\n    <select [(ngModel)]=\"Parent\" style=\"margin-left: 130px;\" class=\"dropdown\" (change)=\"changParent(Parent)\">\n      <option disabled>\n        <=====Select====>\n      </option>\n      <option *ngFor=\"let gpp of GrandParent.parent\" [ngValue]=\"gpp\">\n        {{gpp.member.firstname+' '+gpp.member.lastname+' =>'+ (gpp.member.id)}}\n      </option>\n    </select>\n  </div>\n  <div *ngIf=\"Parent.children!=undefined;then otherParent\">\n  </div>\n</ng-template>\n\n\n<ng-template #otherParent>\n\n  <div class=\"panel-block\">\n    <label>Children</label>\n    <select [(ngModel)]=\"Children\" style=\"margin-left: 139px;\" class=\"dropdown\">\n      <option disabled>\n        <=====Select====>\n      </option>\n      <option *ngFor=\"let gppp of Parent.children\" [ngValue]=\"gppp\">\n        {{gppp.member.firstname+' '+gppp.member.lastname+' =>'+ (gppp.member.id)}}\n      </option>\n    </select>\n  </div>\n</ng-template>"
 
 /***/ }),
 
@@ -94,6 +94,10 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var AppComponent = (function () {
     function AppComponent(_familyGroup) {
         this._familyGroup = _familyGroup;
+        this.familyTemp = [];
+        this.userGrandparent = {};
+        this.userparent = {};
+        this.userchild = {};
         this.GrandParent = {};
         this.Parent = {};
     }
@@ -125,6 +129,35 @@ var AppComponent = (function () {
     };
     AppComponent.prototype.changParent = function (parent) {
         console.log(parent);
+    };
+    AppComponent.prototype.Add = function (a, b, c, param) {
+        var temp = [];
+        var gp = {
+            "grand_parent": {
+                id: this.familyGroup.length + 1,
+                firstname: a.firstname,
+                lastname: a.lastname
+            }
+        };
+        if (param == 1) {
+            this.familyTemp.push({
+                "member": {
+                    id: this.familyGroup.length + 1,
+                    firstname: b.firstname,
+                    lastname: b.lastname
+                }
+            });
+        }
+        else {
+            this.familyTemp.push({
+                "member": {
+                    id: this.familyGroup.length + 1,
+                    firstname: b.firstname,
+                    lastname: b.lastname
+                }
+            });
+        }
+        console.log(gp, this.familyTemp);
     };
     return AppComponent;
 }());
